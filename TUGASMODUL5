@@ -1,0 +1,69 @@
+class Buku:
+    def __init__(self, judul, pengarang, tahun_terbit):
+
+        self.judul = judul
+        self.pengarang = pengarang
+        self.tahun_terbit = tahun_terbit
+
+    def tampilkan_info(self):  
+        print(f"Judul Buku: {self.judul}")
+        print(f"Pengarang: {self.pengarang}")
+        print(f"Tahun Terbit: {self.tahun_terbit}")
+
+    def ubah_tahun_terbit(self, tahun_baru):  
+        self.tahun_terbit = tahun_baru
+        print(f"Tahun terbit berhasil diubah menjadi: {self.tahun_terbit}")
+
+def tambah_buku(daftar_buku): 
+    judul = input("Masukkan Judul Buku: ")
+    pengarang = input("Masukkan Pengarang Buku: ")
+    tahun = int(input("Masukkan Tahun Terbit Buku: "))
+    
+    buku_baru = Buku(judul, pengarang, tahun)  
+    daftar_buku.append(buku_baru)  
+
+def tampilkan_semua_buku(daftar_buku): 
+    if not daftar_buku:
+        print("Belum ada buku yang terdaftar.")
+    else:
+        for idx, buku in enumerate(daftar_buku, start=1):
+            print(f"\nBuku {idx}:")
+            buku.tampilkan_info()
+
+def cari_buku(daftar_buku, judul_dicari): 
+    for buku in daftar_buku:
+        if buku.judul.lower() == judul_dicari.lower():
+            return buku
+    return None
+
+def main(): 
+    daftar_buku = []  
+    while True:
+        print("\nMenu Perpustakaan:")
+        print("1. Tambah Buku")
+        print("2. Tampilkan Semua Buku")
+        print("3. Cari Buku")
+        print("4. Keluar")
+
+        pilihan = input("Pilih menu (1-4): ")
+
+        if pilihan == "1":
+            tambah_buku(daftar_buku) 
+        elif pilihan == "2":
+            tampilkan_semua_buku(daftar_buku)  
+        elif pilihan == "3":
+            judul_dicari = input("Masukkan judul buku yang dicari: ")
+            hasil_pencarian = cari_buku(daftar_buku, judul_dicari)  
+
+            if hasil_pencarian:
+                print("\nBuku ditemukan:")
+                hasil_pencarian.tampilkan_info()
+            else:
+                print("Buku tidak ditemukan.")
+        elif pilihan == "4":
+            print("Terima kasih telah menggunakan sistem perpustakaan!")
+            break
+        else:
+            print("Pilihan tidak valid, silakan coba lagi.")
+
+main()
